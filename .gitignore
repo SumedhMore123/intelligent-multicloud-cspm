@@ -22,3 +22,11 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+
+
+# --- Shravan's IAM Scanner Exclusions ---
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
