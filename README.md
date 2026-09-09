@@ -60,6 +60,8 @@ Current capabilities:
 - Generate standardized security findings
 - Detect `NET-001: SSH exposed to the Internet`
 - Identify the affected Security Group by name and ID
+- Scan S3 bucket ACLs for public access with `DATA-001`
+- Check S3 default server-side encryption with `DATA-002`
 
 ## Current Project Structure
 
@@ -84,6 +86,14 @@ intelligent-multicloud-cspm/
 │   │
 │   └── tests/
 │       └── test_rules.py
+│
+├── data_scanner/
+│   ├── scanner.py
+│   ├── aws_client.py
+│   ├── rules/
+│   │   └── s3.py
+│   └── tests/
+│       └── test_s3_rules.py
 │
 ├── requirements.txt
 ├── .gitignore
