@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Virtual environments
+venv/
+.venv/
+
+# Environment variables / secrets
+.env
+.env.*
+*.pem
+
+# AWS credentials
+.aws/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+# --- Shravan's IAM Scanner Exclusions ---
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
