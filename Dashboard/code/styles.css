@@ -374,17 +374,29 @@ input, select, button {
 
 .sidebar-header {
 
-  padding: 22px 20px 18px;
+  padding: 18px 20px 16px;
 
   display: flex;
 
   align-items: center;
 
-  gap: 10px;
-
   border-bottom: 1px solid rgba(255,255,255,0.05);
 
   flex-shrink: 0;
+
+}
+
+.brand-logo {
+
+  width: 220px;
+
+  height: 92px;
+
+  object-fit: cover;
+
+  object-position: center top;
+
+  display: block;
 
 }
 
@@ -828,9 +840,6 @@ input, select, button {
 
   width: 32px;
 
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
   height: 32px;
 
   border-radius: 50%;

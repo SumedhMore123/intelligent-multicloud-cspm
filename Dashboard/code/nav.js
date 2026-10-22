@@ -131,9 +131,8 @@
     </div>`;
 
   const sidebarMarkup = `
-    <a href="index.html" class="sidebar-header" aria-label="CSPM Dashboard home">
-      <img class="logo-mark" src="../assets/cspm-logo.png" alt="Intelligent Multi-Cloud CSPM logo">
-      <div><div class="logo-title">CSPM</div><div class="logo-sub">Intelligent Multi-Cloud</div></div>
+    <a href="index.html" class="sidebar-header" aria-label="IMCSPM Dashboard home">
+      <img class="brand-logo" src="../assets/IMCSPM%20Tech%20Brand%20Board.png" alt="IMCSPM - Intelligent Multi-Cloud Security Posture Management" />
     </a>
     <nav class="sidebar-nav" id="sidebarNav" aria-label="Primary navigation">
       <div class="nav-section-label">Overview</div>
