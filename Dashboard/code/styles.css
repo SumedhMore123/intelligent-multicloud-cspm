@@ -424,24 +424,6 @@ input, select, button {
 
 }
 
-.logo-image-dark {
-
-  display: none;
-
-}
-
-body.dark-mode .logo-image-light {
-
-  display: none;
-
-}
-
-body.dark-mode .logo-image-dark {
-
-  display: block;
-
-}
-
 
 
 .logo-title {
