@@ -374,11 +374,13 @@ input, select, button {
 
 .sidebar-header {
 
-  padding: 18px 20px 16px;
+  padding: 22px 20px 18px;
 
   display: flex;
 
   align-items: center;
+
+  gap: 10px;
 
   border-bottom: 1px solid rgba(255,255,255,0.05);
 
@@ -386,29 +388,15 @@ input, select, button {
 
 }
 
-.brand-logo {
-
-  width: 220px;
-
-  height: 92px;
-
-  object-fit: cover;
-
-  object-position: center top;
-
-  display: block;
-
-}
-
 
 
 .logo-mark {
 
-  width: 30px;
+  width: 42px;
 
-  height: 30px;
+  height: 42px;
 
-  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  background: transparent;
 
   border-radius: 8px;
 
@@ -420,7 +408,37 @@ input, select, button {
 
   flex-shrink: 0;
 
-  box-shadow: 0 2px 8px rgba(37,99,235,0.35);
+  overflow: hidden;
+
+  box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+
+}
+
+.logo-image {
+
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: contain;
+
+}
+
+.logo-image-dark {
+
+  display: none;
+
+}
+
+body.dark-mode .logo-image-light {
+
+  display: none;
+
+}
+
+body.dark-mode .logo-image-dark {
+
+  display: block;
 
 }
 
