@@ -2,6 +2,12 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+scan_results/
+
+# JavaScript dependencies and generated archives
+node_modules/
+*.bak
+Dashboard/code.zip
 
 # Virtual environments
 venv/

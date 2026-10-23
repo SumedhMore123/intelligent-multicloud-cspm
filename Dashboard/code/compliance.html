@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Compliance</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left"><h1>Compliance</h1><p class="subtitle">Monitor regulatory and security-framework posture across your cloud environment</p></div>
+        <div class="topbar-actions compliance-actions">
+          <label class="compliance-filter-label" for="frameworkFilter">Framework</label>
+          <select id="frameworkFilter" class="compliance-select" aria-label="Filter compliance frameworks">
+            <option value="all">All Frameworks</option><option value="cis">CIS</option><option value="iso">ISO 27001</option><option value="soc2">SOC 2</option><option value="nist">NIST</option>
+          </select>
+          <button id="complianceRefresh" class="icon-btn" type="button" aria-label="Refresh compliance posture" title="Refresh"><span data-cspm-icon="refresh"></span></button>
+          <button id="complianceExport" class="btn btn-outline" type="button"><span data-cspm-icon="export" aria-hidden="true"></span> Export Summary JSON</button>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button>
+        </div>
+      </header>
+      <main class="content compliance-content" id="complianceContent" aria-busy="true">
+        <div class="compliance-loading" id="complianceLoading" aria-label="Loading compliance posture"><div class="compliance-skeleton compliance-skeleton-hero"></div><div class="compliance-skeleton-grid"><div class="compliance-skeleton"></div><div class="compliance-skeleton"></div><div class="compliance-skeleton"></div></div></div>
+        <section id="complianceError" class="compliance-error" role="alert" hidden><span data-cspm-icon="activity" aria-hidden="true"></span><h2>Unable to load compliance posture</h2><p>Refresh to retry.</p><button class="btn btn-outline" id="complianceRetry" type="button">Refresh</button></section>
+        <div id="complianceWorkspace" hidden>
+          <section class="compliance-hero" aria-labelledby="postureTitle">
+            <div class="compliance-hero-main"><div class="compliance-eyebrow"><span data-cspm-icon="complianceBadge" aria-hidden="true"></span> CURRENT CSPM EVALUATION</div><h2 id="postureTitle">Overall Compliance Posture</h2><p class="compliance-hero-copy">Generic scan results provide an environment-wide signal. Framework control coverage is tracked separately below.</p>
+              <div class="compliance-scoreline"><div class="compliance-ring" id="complianceRing" role="img" aria-label="Scan check posture is loading"><div><strong id="postureScore">—</strong><span>Overall Scan Posture</span></div></div><div class="compliance-hero-metrics"><span class="compliance-state" id="postureState">Awaiting data</span><strong id="posturePassCount">—</strong><span id="postureDescription">Evaluated scan checks</span><p id="postureSummary">Generic scan compliance is calculated from current CSPM evaluation results.</p></div></div>
+            </div>
+            <div class="compliance-hero-aside"><div class="hero-aside-icon" data-cspm-icon="reports" aria-hidden="true"></div><strong>Evidence-led posture</strong><p>Framework scores appear only when findings include control-level mappings.</p><span class="hero-aside-status" id="heroFrameworkStatus"><i></i> Framework mappings unavailable</span></div>
+          </section>
+
+          <section class="compliance-section" aria-labelledby="frameworksTitle">
+            <div class="compliance-section-head"><div><div class="compliance-kicker">FRAMEWORK READINESS</div><h2 id="frameworksTitle">Compliance Frameworks</h2><p>Prepared framework coverage based on mappings in the current scan data.</p></div><span class="section-count" id="frameworkCount">6 frameworks</span></div>
+            <div class="framework-grid" id="frameworkGrid"></div>
+          </section>
+
+          <section class="compliance-two-col">
+            <article class="panel compliance-panel cloud-panel"><div class="compliance-panel-head"><div><div class="compliance-kicker">PROVIDER COVERAGE</div><h2>Compliance by Cloud</h2><p>Provider scan visibility and framework control mapping.</p></div></div><div class="cloud-compliance-list" id="cloudCompliance"></div><p class="compliance-selection-note" id="cloudSelectionNote" aria-live="polite">Select a provider to filter compliance-related findings.</p></article>
+            <article class="panel compliance-panel check-panel"><div class="compliance-panel-head"><div><div class="compliance-kicker">GENERIC CSPM RESULTS</div><h2>Scan Check Posture</h2><p>Evaluated checks are independent of framework control coverage.</p></div><span class="scan-check-icon" data-cspm-icon="complianceBadge" aria-hidden="true"></span></div><div class="check-total"><strong id="checkEvaluated">—</strong><span>Evaluated checks</span></div><div class="check-bar" role="img" id="checkBar" aria-label="Scan check pass and attention distribution"><span class="check-bar-passed" id="checkBarPassed"></span><span class="check-bar-attention" id="checkBarAttention"></span></div><div class="check-legend"><span><i class="legend-dot legend-pass"></i>Passed <strong id="checkPassed">—</strong></span><span><i class="legend-dot legend-attention"></i>Failed / Attention <strong id="checkAttention">—</strong></span></div><p class="check-footnote">Informational records are excluded by the shared compliance calculation.</p></article>
+          </section>
+
+          <section class="compliance-two-col compliance-lower-grid">
+            <article class="panel compliance-panel findings-panel"><div class="compliance-panel-head"><div><div class="compliance-kicker">EVIDENCE</div><h2>Compliance-Related Findings</h2><p>Findings explicitly categorized under Compliance.</p></div><a class="text-link" href="findings.html">View All Findings <span aria-hidden="true">→</span></a></div><div id="complianceFindings" class="compliance-findings-list"></div></article>
+            <article class="panel compliance-panel actions-panel"><div class="compliance-panel-head"><div><div class="compliance-kicker">NEXT STEPS</div><h2>Priority Actions</h2><p>Actions supported by current scan evidence.</p></div></div><div id="priorityActions" class="priority-action-list"></div></article>
+          </section>
+
+          <section class="compliance-two-col compliance-lower-grid">
+            <article class="panel compliance-panel coverage-panel"><div class="compliance-panel-head"><div><div class="compliance-kicker">DATA AVAILABILITY</div><h2>Compliance Coverage</h2><p>What the current CSPM dataset can evaluate.</p></div></div><dl class="coverage-list" id="complianceCoverage"></dl></article>
+            <article class="panel compliance-panel activity-panel"><div class="compliance-panel-head"><div><div class="compliance-kicker">OBSERVED DATA</div><h2>Assessment Activity</h2><p>Latest activity represented by a finding record.</p></div><span data-cspm-icon="activity" aria-hidden="true"></span></div><div id="complianceActivity"></div></article>
+          </section>
+
+          <details class="panel control-coverage" id="controlCoverage"><summary><span><span class="compliance-kicker">MAPPING READINESS</span><strong>Control Coverage</strong><small>Framework control-level evidence and affected resources</small></span><span class="coverage-summary-state" id="coverageSummaryState">No mappings available <span data-cspm-icon="chevronDown" aria-hidden="true"></span></span></summary><div class="control-coverage-body" id="controlCoverageBody"></div></details>
+          <div class="compliance-status-live visually-hidden" id="complianceLive" role="status" aria-live="polite"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="framework-backdrop" id="frameworkBackdrop" hidden></div>
+  <aside class="framework-drawer" id="frameworkDrawer" role="dialog" aria-modal="true" aria-labelledby="frameworkDrawerTitle" aria-hidden="true" inert>
+    <div class="framework-drawer-head"><div><span class="compliance-kicker">FRAMEWORK READINESS</span><h2 id="frameworkDrawerTitle">Framework</h2></div><button id="frameworkDrawerClose" class="icon-btn" type="button" aria-label="Close framework details"><span data-cspm-icon="close"></span></button></div>
+    <div class="framework-drawer-body" id="frameworkDrawerBody"></div>
+  </aside>
+  <script src="data.js"></script><script src="nav.js"></script><script src="script.js"></script><script src="compliance.js"></script>
+</body>
+</html>

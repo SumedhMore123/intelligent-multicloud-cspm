@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Data &amp; Compliance</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar data-topbar">
+        <div class="topbar-left data-page-heading"><span class="data-title-icon" data-cspm-icon="data" aria-hidden="true"></span><div><h1>Data &amp; Compliance</h1><p class="subtitle">Monitor data protection, storage exposure, encryption, and access-control risks across your cloud environment</p></div></div>
+        <div class="topbar-actions data-header-actions"><label class="data-scan-input"><span>AWS profile</span><input id="dataAwsProfile" type="text" placeholder="default (optional)" autocomplete="off" maxlength="128"></label><label class="data-scan-input"><span>Region</span><input id="dataAwsRegion" type="text" placeholder="us-east-1 (optional)" autocomplete="off" maxlength="128"></label><button id="runDataScanBtn" class="btn btn-primary" type="button">Run data scan</button><a id="dataViewFindings" class="btn btn-outline" href="findings.html" hidden>View Data Findings</a><button id="dataSecurityRefresh" class="icon-btn" type="button" aria-label="Refresh data security view" title="Refresh view"><span data-cspm-icon="refresh" aria-hidden="true"></span></button><button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button></div>
+      </header>
+      <main class="content data-content" id="dataSecurityContent">
+        <section class="data-hero" aria-labelledby="dataAssessmentTitle"><div class="data-hero-main"><span class="data-hero-icon" data-cspm-icon="data" aria-hidden="true"></span><div><span class="data-kicker">DATA SECURITY POSTURE</span><h2 id="dataAssessmentTitle">Awaiting Data Security Assessment</h2><p id="dataAssessmentDescription">Data-security posture will appear when data-related CSPM findings or assessment results become available.</p></div></div><div class="data-hero-aside"><span id="dataAssessmentState" class="data-state-pill" role="status" aria-live="polite"><i></i>Assessment coverage unavailable</span><small>Findings-based visibility; complete coverage is not implied</small></div></section>
+
+        <section class="data-metrics" id="dataMetrics" aria-label="Data security summary" hidden></section>
+
+        <section class="data-grid-two">
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">EXPOSURE SIGNALS</span><h2>Data Exposure</h2><p>Only explicit Data-domain findings are considered.</p></div><span data-cspm-icon="high" aria-hidden="true"></span></div><div id="dataExposure" class="data-unavailable"><strong>No data-exposure assessment available</strong><span>Data-security findings are required to evaluate exposure categories.</span></div></article>
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">RISK DISTRIBUTION</span><h2>Data Findings by Severity</h2><p>Risk findings; PASS and INFO are excluded.</p></div><span data-cspm-icon="findings" aria-hidden="true"></span></div><div id="dataSeverity" class="data-unavailable"><strong>Severity distribution unavailable</strong><span>No data-security assessment is available in the current findings.</span></div></article>
+        </section>
+
+        <section class="data-grid-two">
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">OBJECT &amp; DATABASE CONTROLS</span><h2>Storage Security</h2><p>Storage signals appear only when findings identify them.</p></div><span data-cspm-icon="resources" aria-hidden="true"></span></div><div id="dataStorage" class="data-unavailable"><strong>Storage assessment data unavailable.</strong><span>No storage-specific findings are represented in current Data-domain records.</span></div></article>
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">PROTECTION CONTROLS</span><h2>Encryption &amp; Data Protection</h2><p>No coverage percentages are inferred from finding counts.</p></div><span data-cspm-icon="policies" aria-hidden="true"></span></div><div id="dataEncryption" class="data-unavailable"><strong>Encryption posture cannot be assessed from current data.</strong><span>Source-backed encryption findings or evaluated-resource totals are required.</span></div></article>
+        </section>
+
+        <section class="data-grid-two">
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">POLICY &amp; PERMISSIONS</span><h2>Data Access Security</h2><p>Generic IAM findings are excluded from this domain.</p></div><span data-cspm-icon="iam" aria-hidden="true"></span></div><div id="dataAccess" class="data-unavailable"><strong>Dedicated data-access assessment is unavailable.</strong><span>Only data-domain findings with explicit access-control meaning appear here.</span></div></article>
+          <article class="panel data-panel data-compact-panel"><div class="data-panel-heading"><div><span class="data-kicker">CLASSIFICATION &amp; DISCOVERY</span><h2>Sensitive Data Protection</h2></div><span data-cspm-icon="data" aria-hidden="true"></span></div><div id="dataSensitive" class="data-unavailable"><strong>Sensitive-data discovery is not available in the current assessment data.</strong></div></article>
+        </section>
+
+        <section class="data-grid-two">
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">PROVIDER COVERAGE</span><h2>Data Security by Cloud</h2><p>General cloud data does not establish data-security coverage.</p></div><span data-cspm-icon="cloud" aria-hidden="true"></span></div><div id="dataClouds" class="data-provider-list">
+            <div class="data-provider"><span data-cspm-icon="aws" aria-hidden="true"></span><strong>AWS</strong><span id="dataCloudAWS">No data-security assessment available.</span><b id="dataCloudCountAWS" hidden></b></div>
+            <div class="data-provider"><span data-cspm-icon="azure" aria-hidden="true"></span><strong>Azure</strong><span id="dataCloudAzure">No data-security assessment available.</span><b id="dataCloudCountAzure" hidden></b></div>
+            <div class="data-provider"><span data-cspm-icon="gcp" aria-hidden="true"></span><strong>GCP</strong><span id="dataCloudGCP">No data-security assessment available.</span><b id="dataCloudCountGCP" hidden></b></div>
+            <div class="data-provider"><span data-cspm-icon="cloud" aria-hidden="true"></span><strong>Other</strong><span id="dataCloudOther">No data-security assessment available.</span><b id="dataCloudCountOther" hidden></b></div>
+          </div></article>
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">FINDING-DERIVED ASSETS</span><h2>Data Resource Inventory</h2><p>Identity follows the Inventory pair: resource type + resource ID.</p></div><span data-cspm-icon="inventory" aria-hidden="true"></span></div><div id="dataResourceState" class="data-unavailable"><strong>No data resources are represented in the available CSPM data.</strong><span>Complete data-resource visibility requires actual asset discovery.</span></div><div id="dataResourceTypes" class="data-resource-types"></div></article>
+        </section>
+
+        <section class="data-grid-two">
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">ASSESSMENT LIMITS</span><h2>Assessment Coverage</h2><p>Coverage is based on explicit Data-domain records.</p></div><span data-cspm-icon="activity" aria-hidden="true"></span></div><div id="dataCoverage" class="data-coverage-list"></div></article>
+          <article class="panel data-panel"><div class="data-panel-heading"><div><span class="data-kicker">EVIDENCE-BASED NEXT STEPS</span><h2>Recommended Actions</h2><p>Guidance is shown only when supported by a source finding.</p></div><span data-cspm-icon="activity" aria-hidden="true"></span></div><div id="dataRecommendations" class="data-unavailable"><strong>Configure or import data-security assessment results to evaluate this domain.</strong><span>This page does not launch a scan.</span></div></article>
+        </section>
+
+        <div class="data-compliance-link"><span data-cspm-icon="compliance" aria-hidden="true"></span><p><strong>Framework compliance is managed separately.</strong><span>View generic scan posture and framework control-mapping availability on Compliance.</span></p><a href="compliance.html">Open Compliance <span data-cspm-icon="next" aria-hidden="true"></span></a></div>
+
+        <section class="panel data-findings-panel" aria-labelledby="dataFindingsTitle"><div class="data-table-heading"><div><span class="data-kicker">INVESTIGATION</span><h2 id="dataFindingsTitle">Data Security Findings</h2><p id="dataFindingsDescription">Only findings with an explicit Data or Storage domain/category will appear here.</p></div><a id="dataAllFindings" class="data-text-link" href="findings.html" hidden>Open Findings <span aria-hidden="true">→</span></a></div>
+          <div class="data-filters"><label class="data-search" for="dataSearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="dataSearch" type="search" placeholder="Search finding, resource, evidence, or ID" autocomplete="off" /></label><label><span>Cloud</span><select id="dataCloudFilter" aria-label="Filter data findings by cloud"><option value="">All clouds</option></select></label><label><span>Severity</span><select id="dataSeverityFilter" aria-label="Filter data findings by severity"><option value="">All severities</option></select></label><label><span>Status</span><select id="dataStatusFilter" aria-label="Filter data findings by status"><option value="">All statuses</option></select></label><label><span>Resource type</span><select id="dataTypeFilter" aria-label="Filter data findings by resource type"><option value="">All resource types</option></select></label><label><span>Category</span><select id="dataCategoryFilter" aria-label="Filter data findings by category"><option value="">All categories</option></select></label><label><span>Sort</span><select id="dataSort" aria-label="Sort data findings"><option value="detected">Detected (newest)</option><option value="severity">Severity (highest)</option><option value="risk">Risk (highest)</option><option value="cloud">Cloud</option><option value="resource">Resource</option></select></label><button id="dataClearFilters" class="btn btn-quiet" type="button" hidden>Clear</button></div>
+          <div id="dataResult" class="data-result" aria-live="polite"></div><div class="data-table-wrap" tabindex="0" aria-label="Scrollable data security findings table"><table class="data-table"><thead><tr><th>Severity</th><th>Finding</th><th>Cloud</th><th>Resource</th><th>Category</th><th>Risk</th><th>Status</th><th>Detected</th></tr></thead><tbody id="dataFindingsBody"></tbody></table></div><div id="dataEmpty" class="data-table-empty" hidden></div>
+          <div id="dataPagination" class="data-pagination" hidden><span id="dataPageLabel"></span><div><button id="dataPrev" class="page-btn" type="button" aria-label="Previous page"><span data-cspm-icon="previous"></span></button><span id="dataPageNumber"></span><button id="dataNext" class="page-btn" type="button" aria-label="Next page"><span data-cspm-icon="next"></span></button></div></div>
+        </section><div id="dataLive" class="visually-hidden" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+  </div>
+  <div class="data-drawer-backdrop" id="dataDrawerBackdrop" hidden></div><aside class="data-drawer" id="dataDrawer" role="dialog" aria-modal="true" aria-labelledby="dataDrawerTitle" aria-hidden="true" inert><div class="data-drawer-header"><div><span class="data-kicker">DATA SECURITY FINDING</span><h2 id="dataDrawerTitle">Finding details</h2></div><button id="dataDrawerClose" class="icon-btn" type="button" aria-label="Close finding details"><span data-cspm-icon="close" aria-hidden="true"></span></button></div><div id="dataDrawerBody" class="data-drawer-body"></div></aside>
+  <script src="data.js"></script><script src="scan-data.js"></script><script src="nav.js"></script><script src="script.js"></script><script src="data-security.js"></script>
+</body>
+</html>

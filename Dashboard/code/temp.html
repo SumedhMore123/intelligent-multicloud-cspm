@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>CSPM Platform — Dashboard</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="premium.css" />
+</head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar">
+
+    <!-- Logo / Brand -->
+    <div class="sidebar-header">
+      <div class="logo-mark">
+        <svg width="17" height="17" viewBox="0 0 24 24"
+             fill="none" stroke="white" stroke-width="2.2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>
+          <path d="m9 12 2 2 4-4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="logo-title">CSPM</div>
+        <div class="logo-sub">Intelligent Multi-Cloud</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+
+      <!-- Overview section (active/expandable) -->
+      <div class="nav-section-label">Overview</div>
+
+      <a href="index.html" class="nav-item nav-link nav-current nav-sub-item">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </span>
+      </a>
+
+      <div class="nav-item nav-soon nav-sub-item">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Executive Summary
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <!-- Main nav items -->
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.59 14.9A2 2 0 0 0 3.45 22H20.55a2 2 0 0 0 1.73-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Findings
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Inventory
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Compliance
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+          Cloud Security
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <!-- IAM — active link -->
+      <a href="iam.html" class="nav-item nav-link">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          IAM Security
+        </span>
+      </a>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          Policies
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+          Reports
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          Alerts
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+      <div class="nav-divider"></div>
+
+      <div class="nav-item nav-soon">
+        <span class="nav-label">
+          <svg class="nav-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </span>
+        <span class="soon-badge">soon</span>
+      </div>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      Multi-cloud security posture management platform.
+    </div>
+
+  </aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="topbar-left">
+        <h1>Dashboard <span class="header-chevron">?</span></h1>
+        <p class="subtitle">Real-time overview of your cloud security posture</p>
+      </div>
+
+      <div class="topbar-actions">
+
+        <!-- Date range selector -->
+        <div class="date-range-selector" id="dateRangeBtn" title="Select time range">
+          <span class="dr-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8"  y1="2" x2="8"  y2="6"/>
+              <line x1="3"  y1="10" x2="21" y2="10"/>
+            </svg>
+          </span>
+          <span class="dr-text">Last 7 Days</span>
+          <span class="dr-chevron">?</span>
+        </div>
+
+        <!-- Refresh -->
+        <button id="refreshBtn" class="icon-btn" type="button" title="Refresh dashboard">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+        </button>
+
+        <!-- Settings -->
+        <button id="settingsBtn" class="icon-btn" type="button" title="Settings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </button>
+
+        <!-- Help -->
+        <button id="helpBtn" class="icon-btn" type="button" title="Help">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+        </button>
+
+        <!-- Notifications -->
+        <div class="notif-wrapper">
+          <button id="notifBtn" class="icon-btn" type="button" title="Notifications">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+          </button>
+          <span class="notif-badge" id="notifBadge">0</span>
+        </div>
+
+        <div class="topbar-sep"></div>
+
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="theme-toggle" type="button">?? Dark</button>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <main class="content">
+
+      <!-- ===== ROW 0: KPI CARDS ===== -->
+      <section class="dashboard-kpis" id="dashboardKpiRow">
+        <!-- injected by renderDashboardKPIs() -->
+      </section>
+
+
+      <!-- ===== ROW 1: SEVERITY | TREND | TOP FINDINGS ===== -->
+      SPLIT_TARGET
+
+        <!-- Findings by Severity -->
+        <div class="panel" id="severityPanel">
+          <div class="panel-title">Findings by Severity</div>
+          <div class="severity-overview">
+            <div class="dashboard-donut" id="severityDonut">
+              <div class="dashboard-donut-hole">
+                <strong id="severityTotal">0</strong>
+                <span id="severityTotalLabel">Total</span>
+              </div>
+            </div>
+            <div class="severity-list" id="severityLegend">
+              <!-- legend rows injected by script.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Findings Trend -->
+        <div class="panel" id="trendPanel">
+          <div class="trend-header">
+            <div class="panel-title">Findings Trend</div>
+            <select id="trendPeriodSelect" class="select-filter">
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+            </select>
+          </div>
+          <div class="trend-legend" id="trendChartLegend">
+            <div class="trend-legend-item"><span class="severity-dot critical-dot"></span> Critical</div>
+            <div class="trend-legend-item"><span class="severity-dot high-dot"></span> High</div>
+            <div class="trend-legend-item"><span class="severity-dot medium-dot"></span> Medium</div>
+            <div class="trend-legend-item"><span class="severity-dot low-dot"></span> Low</div>
+          </div>
+          <div class="trend-chart-wrapper" id="trendChartWrapper">
+            <div class="chart-tooltip" id="trendChartTooltip"></div>
+          </div>
+        </div>
+
+        <!-- Top Findings -->
+        <div class="panel" id="topFindingsPanel">
+          <div class="panel-header-row">
+            <div class="panel-title" style="margin-bottom:0;">Top Findings</div>
+            <a href="#" class="view-all-link">View All</a>
+          </div>
+          <div class="top-findings-list" id="topFindingsList">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ===== ROW 2: CLOUD | COMPLIANCE | ACTIVITY ===== -->
+      SPLIT_TARGET
+
+        <!-- Findings by Cloud -->
+        <div class="panel" id="cloudPanel">
+          <div class="panel-title">Findings by Cloud</div>
+          <div class="horizontal-bars" id="cloudFindingsList">
+            <!-- populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Compliance by Standard -->
+        <div class="panel" id="compliancePanel">
+          <div class="panel-header-row">
+            <div class="panel-title" style="margin-bottom:0;">Compliance by Standard</div>
+            <a href="#" class="view-all-link">View all</a>
+          </div>
+          <div class="horizontal-bars" id="complianceList" style="margin-top:10px;">
+            <!-- populated dynamically -->
+          </div>
+          <!-- Overall posture compact summary injected below by JS -->
+          <div id="overallPostureContent"></div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="panel" id="activityPanel">
+          <div class="panel-header-row">
+            <div class="panel-title" style="margin-bottom:0;">Recent Activity</div>
+            <a href="#" class="view-all-link">View All</a>
+          </div>
+          <div class="recent-activity-list" id="recentActivityList">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ===== ROW 3: LATEST FINDINGS TABLE ===== -->
+      <section class="panel" id="latestFindingsPanel">
+
+        <div class="panel-header-row">
+          <div class="panel-title" style="margin-bottom:0;">Latest Findings</div>
+          <a href="iam.html" class="view-all-link">View All</a>
+        </div>
+
+        <div class="filters-row">
+          <div class="search-box">
+            <span style="font-size:12px;color:var(--muted);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input id="dashSearchInput" type="text" placeholder="Search findings, resources..." />
+          </div>
+
+          <select id="dashCloudFilter" class="select-filter">
+            <option value="ALL">All Clouds</option>
+            <option value="AWS">AWS</option>
+            <option value="Azure">Azure</option>
+            <option value="GCP">GCP</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <select id="dashSeverityFilter" class="select-filter">
+            <option value="ALL">All Severities</option>
+            <option value="CRITICAL">CRITICAL</option>
+            <option value="HIGH">HIGH</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="LOW">LOW</option>
+            <option value="INFO">INFO</option>
+            <option value="PASS">PASS</option>
+          </select>
+
+          <select id="dashStatusFilter" class="select-filter">
+            <option value="ALL">All Statuses</option>
+            <option value="OPEN">OPEN</option>
+            <option value="PASS">PASS</option>
+            <option value="INFO">INFO</option>
+            <option value="RESOLVED">RESOLVED</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table id="dashFindingsTable">
+            <thead>
+              <tr>
+                <th data-dash-sort="severity" class="sortable">Severity<span class="sort-arrow"></span></th>
+                <th style="width:28%;">Finding</th>
+                <th>Cloud</th>
+                <th>Domain</th>
+                <th>Resource</th>
+                <th data-dash-sort="risk_score" class="sortable">Risk<span class="sort-arrow"></span></th>
+                <th>Status</th>
+                <th data-dash-sort="detected_at" class="sortable">Detected<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody id="dashTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination-row">
+          <span id="dashPaginationLabel"></span>
+          <div class="pagination-controls">
+            <button id="dashPrevPage" class="page-btn" type="button">?</button>
+            <span id="dashPageIndicator" class="page-indicator"></span>
+            <button id="dashNextPage" class="page-btn" type="button">?</button>
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ===== ROW 4: SECURITY MODULES (compact) ===== -->
+      <section class="panel panel-modules" id="securityModulesPanel">
+        <div class="panel-title">Security Modules</div>
+        <div class="module-list" id="securityModulesList">
+          <!-- Populated dynamically by renderSecurityModules() -->
+        </div>
+      </section>
+
+
+      <!-- ===== ROW 5: AI PREVIEW (compact) ===== -->
+      <section class="panel ai-preview-panel">
+        <div class="ai-preview-header">
+          <div>
+            <div class="panel-title">AI Security Intelligence</div>
+            <p>Cross-domain correlation and risk prioritization will be integrated here.</p>
+          </div>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="ai-preview-grid">
+          <div class="ai-preview-card">
+            <strong>Finding Correlation</strong>
+            <span>Connect related findings across cloud security domains.</span>
+          </div>
+          <div class="ai-preview-card">
+            <strong>Attack Path Analysis</strong>
+            <span>Identify combinations of weaknesses that create higher-risk attack paths.</span>
+          </div>
+          <div class="ai-preview-card">
+            <strong>Intelligent Prioritization</strong>
+            <span>Rank findings using risk, exposure and privilege context.</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+
+<!-- data.js must load first — defines SAMPLE_FINDINGS used by script.js -->
+<script src="data.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
