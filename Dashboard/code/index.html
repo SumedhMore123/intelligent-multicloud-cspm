@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>CSPM Platform - Dashboard</title>
+
+  <link rel="stylesheet" href="styles.css" />
+  </head>
+
+<body>
+
+<div class="layout">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="sidebar" id="appSidebar"></aside>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <div class="main">
+
+    <!-- TOP BAR -->
+    <header class="topbar">
+
+      <div class="topbar-left">
+        <h1>Dashboard</h1>
+        <p class="subtitle">Current security posture from the findings available in this workspace</p>
+      </div>
+
+      <div class="topbar-actions">
+
+        <!-- The current dataset has no historical date window. -->
+        <div class="date-range-selector" aria-disabled="true" aria-label="Showing all findings; date filtering is unavailable" title="Date filtering is unavailable for the current dataset">
+          <span class="dr-icon"><span data-cspm-icon="calendar"></span></span>
+          <span class="dr-text">All findings</span>
+        </div>
+
+        <!-- Refresh -->
+        <button id="refreshBtn" class="icon-btn" type="button" title="Refresh dashboard">
+          <span data-cspm-icon="refresh"></span>
+        </button>
+
+        <!-- Settings -->
+        <a id="settingsBtn" class="icon-btn" href="settings.html" aria-label="Settings" title="Settings">
+          <span data-cspm-icon="settings"></span>
+        </a>
+
+        <!-- Help -->
+        <button id="helpBtn" class="icon-btn" type="button" title="Help resources are not available in this preview" aria-label="Help resources unavailable" disabled>
+          <span data-cspm-icon="help"></span>
+        </button>
+
+        <!-- Notifications -->
+        <div class="notif-wrapper">
+          <a id="notifBtn" class="icon-btn" href="alerts.html" aria-label="Open alerts derived from current findings" title="Open alerts">
+            <span data-cspm-icon="notifications"></span>
+          </a>
+          <span class="notif-badge" id="notifBadge">0</span>
+        </div>
+
+        <div class="topbar-sep"></div>
+
+        <!-- Theme toggle -->
+        <button id="themeToggle" class="theme-toggle" type="button"><span data-cspm-icon="moon"></span><span>Dark</span></button>
+
+      </div>
+
+    </header>
+
+
+    <!-- ================= CONTENT ================= -->
+
+    <main class="content">
+
+      <!-- ===== ROW 0: KPI CARDS ===== -->
+      <section class="dashboard-kpis" id="dashboardKpiRow">
+        <!-- injected by renderDashboardKPIs() -->
+      </section>
+
+
+      <!-- ===== ROW 1: SEVERITY | TREND | TOP FINDINGS ===== -->
+      <section class="dash-row dash-row-3col">
+
+        <!-- Findings by Severity -->
+        <div class="panel" id="severityPanel">
+          <div class="panel-title">Findings by Severity</div>
+          <div class="severity-overview">
+            <div class="dashboard-donut" id="severityDonut">
+              <div class="dashboard-donut-hole">
+                <strong id="severityTotal">0</strong>
+                <span id="severityTotalLabel">Total</span>
+              </div>
+            </div>
+            <div class="severity-list" id="severityLegend">
+              <!-- legend rows injected by script.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Findings Trend -->
+        <div class="panel" id="trendPanel">
+          <div class="trend-header">
+            <div class="panel-title">Findings Trend</div>
+            <select id="trendPeriodSelect" class="select-filter">
+              <option value="Daily">Daily</option>
+              <option value="Weekly">Weekly</option>
+            </select>
+          </div>
+          <div class="trend-legend" id="trendChartLegend">
+            <div class="trend-legend-item"><span class="severity-dot critical-dot"></span> Critical</div>
+            <div class="trend-legend-item"><span class="severity-dot high-dot"></span> High</div>
+            <div class="trend-legend-item"><span class="severity-dot medium-dot"></span> Medium</div>
+            <div class="trend-legend-item"><span class="severity-dot low-dot"></span> Low</div>
+          </div>
+          <div class="trend-chart-wrapper" id="trendChartWrapper">
+            <div class="chart-tooltip" id="trendChartTooltip"></div>
+          </div>
+        </div>
+
+        <!-- Top Findings -->
+        <div class="panel" id="topFindingsPanel">
+          <div class="panel-header-row">
+            <div class="panel-title" style="margin-bottom:0;">Top Findings</div>
+            <a href="#" class="view-all-link">View All</a>
+          </div>
+          <div class="top-findings-list" id="topFindingsList">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ===== ROW 2: CLOUD | COMPLIANCE | ACTIVITY ===== -->
+      <section class="dash-row dash-row-equal">
+
+        <!-- Findings by Cloud -->
+        <div class="panel" id="cloudPanel">
+          <div class="panel-title">Findings by Cloud</div>
+          <div class="horizontal-bars" id="cloudFindingsList">
+            <!-- populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Compliance by Standard -->
+        <div class="panel" id="compliancePanel">
+          <div class="panel-header-row">
+            <div class="panel-title" style="margin-bottom:0;">Compliance by Standard</div>
+            <a href="#" class="view-all-link">View all</a>
+          </div>
+          <div class="horizontal-bars" id="complianceList" style="margin-top:10px;">
+            <!-- populated dynamically -->
+          </div>
+          <!-- Overall posture compact summary injected below by JS -->
+          <div id="overallPostureContent"></div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="panel" id="activityPanel">
+          <div class="panel-header-row">
+            <div class="panel-title" style="margin-bottom:0;">Recent Activity</div>
+            <a href="#" class="view-all-link">View All</a>
+          </div>
+          <div class="recent-activity-list" id="recentActivityList">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+      </section>
+
+
+      <!-- ===== ROW 3: SECURITY MODULES (compact) ===== -->
+      <section class="panel panel-modules" id="securityModulesPanel">
+        <div class="panel-title">Security Modules</div>
+        <div class="module-list" id="securityModulesList">
+          <!-- Populated dynamically by renderSecurityModules() -->
+        </div>
+      </section>
+
+
+
+
+      <!-- ===== ROW 4: AI PREVIEW (compact) ===== -->
+      <section class="panel ai-preview-panel">
+        <div class="ai-preview-header">
+          <div>
+            <div class="panel-title">AI Security Intelligence</div>
+            <p>Cross-domain correlation and risk prioritization will be integrated here.</p>
+          </div>
+          <span class="coming-badge">Coming soon</span>
+        </div>
+        <div class="ai-preview-grid">
+          <div class="ai-preview-card">
+            <strong>Finding Correlation</strong>
+            <span>Connect related findings across cloud security domains.</span>
+          </div>
+          <div class="ai-preview-card">
+            <strong>Attack Path Analysis</strong>
+            <span>Identify combinations of weaknesses that create higher-risk attack paths.</span>
+          </div>
+          <div class="ai-preview-card">
+            <strong>Intelligent Prioritization</strong>
+            <span>Rank findings using risk, exposure and privilege context.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== ROW 5: LATEST FINDINGS TABLE ===== -->
+      <section class="panel" id="latestFindingsPanel">
+
+        <div class="panel-header-row">
+          <div class="panel-title" style="margin-bottom:0;">Latest Findings</div>
+          <a href="iam.html" class="view-all-link">View All</a>
+        </div>
+
+        <div class="filters-row">
+          <div class="search-box">
+            <span style="font-size:12px;color:var(--muted);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </span>
+            <input id="dashSearchInput" type="text" placeholder="Search findings, resources..." />
+          </div>
+
+          <select id="dashCloudFilter" class="select-filter">
+            <option value="ALL">All Clouds</option>
+            <option value="AWS">AWS</option>
+            <option value="Azure">Azure</option>
+            <option value="GCP">GCP</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <select id="dashSeverityFilter" class="select-filter">
+            <option value="ALL">All Severities</option>
+            <option value="CRITICAL">CRITICAL</option>
+            <option value="HIGH">HIGH</option>
+            <option value="MEDIUM">MEDIUM</option>
+            <option value="LOW">LOW</option>
+            <option value="INFO">INFO</option>
+            <option value="PASS">PASS</option>
+          </select>
+
+          <select id="dashStatusFilter" class="select-filter">
+            <option value="ALL">All Statuses</option>
+            <option value="OPEN">OPEN</option>
+            <option value="PASS">PASS</option>
+            <option value="INFO">INFO</option>
+            <option value="RESOLVED">RESOLVED</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table id="dashFindingsTable">
+            <thead>
+              <tr>
+                <th data-dash-sort="severity" class="sortable">Severity<span class="sort-arrow"></span></th>
+                <th style="width:28%;">Finding</th>
+                <th>Cloud</th>
+                <th>Domain</th>
+                <th>Resource</th>
+                <th data-dash-sort="risk_score" class="sortable">Risk<span class="sort-arrow"></span></th>
+                <th>Status</th>
+                <th data-dash-sort="detected_at" class="sortable">Detected<span class="sort-arrow"></span></th>
+              </tr>
+            </thead>
+            <tbody id="dashTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="pagination-row">
+          <span id="dashPaginationLabel"></span>
+          <div class="pagination-controls">
+            <button id="dashPrevPage" class="page-btn" type="button" aria-label="Previous page" title="Previous page"><span data-cspm-icon="previous"></span></button>
+            <span id="dashPageIndicator" class="page-indicator"></span>
+            <button id="dashNextPage" class="page-btn" type="button" aria-label="Next page" title="Next page"><span data-cspm-icon="next"></span></button>
+          </div>
+        </div>
+
+      </section>
+
+
+
+
+    </main>
+
+  </div>
+
+</div>
+
+
+<!-- Load the optional integration config before the dashboard data layer. -->
+<script src="integration-config.js"></script>
+<script src="data.js"></script>
+<script src="scan-data.js"></script>
+<script src="nav.js"></script>
+<script src="script.js?v=20261022"></script>
+<script src="integration-loader.js?v=20261022"></script>
+</body>
+</html>

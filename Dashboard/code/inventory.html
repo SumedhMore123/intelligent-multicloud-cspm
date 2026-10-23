@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="inventory.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left"><h1>Inventory</h1><p class="subtitle">Discover and understand the cloud resources visible to your CSPM environment</p></div>
+        <div class="topbar-actions inventory-actions">
+          <button id="inventoryRefresh" class="icon-btn" type="button" aria-label="Refresh inventory" title="Refresh inventory"><span data-cspm-icon="refresh"></span></button>
+          <button id="inventoryExport" class="btn btn-outline inventory-export" type="button"><span data-cspm-icon="export" aria-hidden="true"></span> Export CSV</button>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button>
+        </div>
+      </header>
+      <main class="content inventory-content" id="inventoryContent" aria-busy="true">
+        <div class="inventory-limitation" role="note"><span data-cspm-icon="activity" aria-hidden="true"></span> Inventory currently reflects resources represented in available CSPM findings.</div>
+        <section class="inventory-summary" id="inventorySummary" aria-label="Inventory summary"></section>
+        <section class="inventory-posture" id="inventoryPosture" aria-label="Resource security posture"></section>
+        <section class="inventory-overview" aria-label="Inventory breakdowns">
+          <article class="panel inventory-breakdown"><div class="inventory-panel-heading"><div><h2>Cloud Distribution</h2><p>Unique resources by provider</p></div></div><div id="cloudDistribution" class="inventory-bars"></div></article>
+          <article class="panel inventory-breakdown"><div class="inventory-panel-heading"><div><h2>Resource Types</h2><p>Unique resources by type</p></div></div><div id="typeDistribution" class="inventory-bars"></div></article>
+          <article class="panel inventory-breakdown inventory-cross-panel"><div class="inventory-panel-heading"><div><h2>Resource Types by Cloud</h2><p>Observed type counts within each provider</p></div></div><div id="crossDistribution" class="inventory-cross"></div></article>
+        </section>
+        <section class="panel inventory-toolbar" id="inventoryToolbar" aria-label="Inventory search and filters">
+          <div class="inventory-search-row">
+            <label class="inventory-search" for="inventorySearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="inventorySearch" type="search" placeholder="Search resources, types, domains, or findings…" autocomplete="off" /><kbd>/</kbd></label>
+            <button id="inventoryFilterToggle" class="btn btn-outline inventory-filter-toggle" type="button" aria-expanded="true" aria-controls="inventoryFilters"><span data-cspm-icon="filter" aria-hidden="true"></span> Filters <span id="inventoryFilterCount" class="inventory-filter-count" hidden></span></button>
+            <button id="inventoryClearFilters" class="btn btn-quiet" type="button" hidden>Clear all</button>
+          </div>
+          <div class="inventory-filters" id="inventoryFilters"></div>
+          <div class="inventory-chips" id="inventoryChips" aria-label="Active filters"></div>
+          <div class="inventory-result-line"><span id="inventoryResultCount" aria-live="polite"></span><span id="inventoryStatus" class="inventory-visually-hidden" role="status" aria-live="polite"></span></div>
+        </section>
+        <section class="panel inventory-table-panel" id="inventoryTablePanel" aria-label="Cloud resources">
+          <div class="inventory-table-scroll" tabindex="0" aria-label="Scrollable inventory table">
+            <table class="inventory-table"><thead><tr>
+              <th scope="col" data-sort="resource"><button type="button" class="inventory-sort">Resource <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="resource_type"><button type="button" class="inventory-sort">Resource Type <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="cloud"><button type="button" class="inventory-sort">Cloud <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="domain"><button type="button" class="inventory-sort">Domain <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="finding_count"><button type="button" class="inventory-sort">Findings <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="open_findings"><button type="button" class="inventory-sort">Open <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="highest_severity"><button type="button" class="inventory-sort">Highest Severity <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="max_risk_score"><button type="button" class="inventory-sort">Risk <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="status"><button type="button" class="inventory-sort">Status <span class="inventory-sort-icon"></span></button></th>
+              <th scope="col" data-sort="last_seen" aria-sort="descending"><button type="button" class="inventory-sort">Last Seen <span class="inventory-sort-icon"></span></button></th>
+            </tr></thead><tbody id="inventoryBody"></tbody></table>
+          </div>
+          <div class="inventory-empty" id="inventoryEmpty" hidden></div>
+          <div class="inventory-pagination"><span id="inventoryPaginationLabel"></span><div class="pagination-controls"><label for="inventoryPageSize">Rows</label><select id="inventoryPageSize" aria-label="Resources per page"><option>20</option><option>50</option><option>100</option></select><button id="inventoryPrev" class="page-btn" type="button" aria-label="Previous page"><span data-cspm-icon="previous"></span></button><span class="page-indicator" id="inventoryPageIndicator"></span><button id="inventoryNext" class="page-btn" type="button" aria-label="Next page"><span data-cspm-icon="next"></span></button></div></div>
+        </section>
+        <section class="inventory-error" id="inventoryError" role="alert" hidden><span data-cspm-icon="activity" aria-hidden="true"></span><h2>Inventory data unavailable</h2><p>Refresh to retry loading the shared CSPM findings data.</p><button id="inventoryRetry" class="btn btn-outline" type="button">Retry</button></section>
+      </main>
+    </div>
+  </div>
+  <div id="resourceBackdrop" class="resource-backdrop" hidden></div>
+  <aside id="resourceDrawer" class="resource-drawer" role="dialog" aria-modal="true" aria-labelledby="resourceDrawerTitle" aria-hidden="true" inert>
+    <div class="resource-drawer-header"><div><span class="resource-drawer-eyebrow">Resource details</span><h2 id="resourceDrawerTitle">Resource</h2></div><button id="resourceDrawerClose" class="icon-btn" type="button" aria-label="Close resource details"><span data-cspm-icon="close"></span></button></div>
+    <div class="resource-drawer-body" id="resourceDrawerBody"></div>
+  </aside>
+  <script src="data.js"></script>
+  <script src="nav.js"></script>
+  <script src="script.js"></script>
+  <script src="inventory.js"></script>
+</body>
+</html>

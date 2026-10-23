@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f7fb" />
+  <title>CSPM Platform - IAM Security</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="iam-page">
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar iam-topbar">
+        <div class="iam-page-heading">
+          <span class="iam-eyebrow"><span data-cspm-icon="iam"></span> CSPM / Security Domains</span>
+          <h1>IAM Security</h1>
+          <p class="subtitle">Identity, privilege, authentication, and access-control posture</p>
+        </div>
+        <div class="topbar-actions iam-header-actions">
+          <span id="sourceLabel" class="iam-source" role="status"><i></i><span>Sample scan data</span></span>
+          <button id="refreshBtn" class="iam-icon-button" type="button" aria-label="Refresh IAM view" title="Refresh view"><span data-cspm-icon="refresh"></span></button>
+          <button id="themeToggle" class="theme-toggle" type="button"><span data-cspm-icon="moon"></span><span>Dark</span></button>
+          <button id="resetBtn" class="btn btn-outline" type="button"><span data-cspm-icon="reset"></span><span>Reset</span></button>
+          <button id="runIamScanBtn" class="btn btn-primary" type="button"><span data-cspm-icon="refresh"></span><span>Run IAM scan</span></button>
+          <button id="uploadBtn" class="btn btn-outline" type="button"><span data-cspm-icon="upload"></span><span>Upload scan</span></button>
+          <input id="fileInput" type="file" accept=".json,application/json" hidden aria-label="Choose IAM findings JSON" />
+        </div>
+      </header>
+
+      <main class="content iam-content">
+        <div id="uploadError" class="iam-upload-message" role="alert" hidden></div>
+        <div id="iamScanStatus" class="iam-upload-message" role="status" aria-live="polite">No live IAM scan has been run.</div>
+
+        <section class="iam-hero panel" aria-labelledby="iamHeroTitle">
+          <div class="iam-hero-main">
+            <div class="iam-hero-icon" aria-hidden="true"><span data-cspm-icon="total"></span></div>
+            <div class="iam-hero-copy">
+              <div class="iam-section-kicker">IDENTITY &amp; ACCESS POSTURE</div>
+              <h2 id="iamHeroTitle">IAM security posture</h2>
+              <p id="iamSummary">Posture summary is calculated from the findings in the current scan.</p>
+              <div id="iamHeroStatus" class="iam-hero-status" data-state="review"><span class="iam-status-dot"></span><strong id="iamPostureLabel">Analyzing current findings</strong><span id="iamHeroScope"></span></div>
+            </div>
+          </div>
+          <div class="iam-hero-side" aria-label="Current scan overview">
+            <div><span>Open risk findings</span><strong id="iamHeroOpen">—</strong></div>
+            <div><span>Highest recorded risk</span><strong id="iamHeroRisk">—</strong></div>
+            <a href="findings.html" class="iam-text-link">Open all findings <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
+
+        <section class="iam-kpi-grid" id="kpiRow" aria-label="IAM metrics"></section>
+
+        <section class="iam-analysis-grid" aria-label="Identity posture analysis">
+          <article class="panel iam-analysis-panel iam-identity-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">CONTROL SIGNALS</span><h2>Identity posture</h2></div><span class="iam-panel-icon"><span data-cspm-icon="iam"></span></span></div>
+            <div id="identityPosture" class="iam-signal-list"></div>
+          </article>
+          <article class="panel iam-analysis-panel iam-exposure-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">OBSERVED FINDINGS</span><h2>Privilege exposure</h2></div><span class="iam-panel-icon iam-icon-risk"><span data-cspm-icon="high"></span></span></div>
+            <div id="privilegeExposure"></div>
+          </article>
+          <article class="panel iam-analysis-panel iam-exposure-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">ROLE ASSUMPTION</span><h2>Trust policy exposure</h2></div><span class="iam-panel-icon iam-icon-trust"><span data-cspm-icon="network"></span></span></div>
+            <div id="trustExposure"></div>
+          </article>
+        </section>
+
+        <section class="iam-chart-grid" aria-label="IAM risk and resource analysis">
+          <article class="panel iam-chart-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">RISK-ONLY VIEW</span><h2>Severity distribution</h2><p>Risk findings only; passing and informational checks are excluded.</p></div></div>
+            <div class="iam-severity-layout"><div id="donutChart" class="iam-donut" role="img" aria-label="Severity distribution chart"><div><strong id="iamRiskTotal">0</strong><span>risk findings</span></div></div><div id="severityLegend" class="iam-severity-legend"></div></div>
+          </article>
+          <article class="panel iam-chart-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">UNIQUE RESOURCES</span><h2>Affected IAM resources</h2><p>Unique resources with open risk findings by resource type.</p></div></div>
+            <div id="resourceBarChart" class="iam-resource-bars"></div>
+          </article>
+          <article class="panel iam-chart-panel iam-posture-detail-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">AUTHENTICATION &amp; CREDENTIALS</span><h2>Control detail</h2></div></div>
+            <div id="credentialPosture" class="iam-detail-metrics"></div>
+          </article>
+        </section>
+
+        <section class="iam-priorities-grid" aria-label="IAM priorities">
+          <article class="panel iam-list-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">RANKED BY EXISTING RISK SCORE</span><h2>Top IAM risks</h2></div><span class="iam-count-chip" id="topRiskCount">0</span></div>
+            <div id="topRisk" class="iam-risk-list"></div>
+          </article>
+          <article class="panel iam-list-panel">
+            <div class="iam-panel-heading"><div><span class="iam-section-kicker">REPEATED OPEN CHECKS</span><h2>Most frequent rules</h2></div><span class="iam-count-chip" id="ruleCount">0</span></div>
+            <div id="ruleFrequency" class="iam-rule-list"></div>
+          </article>
+        </section>
+
+        <section class="panel iam-findings-panel" aria-labelledby="iamFindingsTitle">
+          <div class="iam-table-heading"><div><span class="iam-section-kicker">INVESTIGATION</span><h2 id="iamFindingsTitle">IAM findings</h2><p>Search, filter, sort, and open a finding to inspect its recorded evidence.</p></div><a href="inventory.html" class="iam-text-link">View inventory <span aria-hidden="true">→</span></a></div>
+          <div class="iam-filters">
+            <label class="iam-search"><span data-cspm-icon="search" aria-hidden="true"></span><span class="visually-hidden">Search IAM findings</span><input id="searchInput" type="search" placeholder="Search resource, finding, evidence, or rule" autocomplete="off" /></label>
+            <label><span class="visually-hidden">Filter by severity</span><select id="severityFilter" class="select-filter"><option value="ALL">All severities</option><option value="CRITICAL">Critical</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option><option value="INFO">Info</option><option value="PASS">Pass</option></select></label>
+            <label><span class="visually-hidden">Filter by resource type</span><select id="resourceFilter" class="select-filter"><option value="ALL">All resource types</option></select></label>
+            <label><span class="visually-hidden">Filter by status</span><select id="statusFilter" class="select-filter"><option value="ALL">All statuses</option><option value="OPEN">Open</option><option value="PASS">Pass</option><option value="INFO">Info</option><option value="RESOLVED">Resolved</option></select></label>
+          </div>
+          <div class="table-wrap iam-table-wrap"><table class="iam-table"><thead><tr><th data-sort="finding_id" scope="col" aria-sort="none"><button class="iam-sort-button" type="button">Rule <span class="sort-arrow"></span></button></th><th scope="col">Resource</th><th scope="col">Finding</th><th data-sort="severity" scope="col" aria-sort="none"><button class="iam-sort-button" type="button">Severity <span class="sort-arrow"></span></button></th><th scope="col">Status</th><th data-sort="risk_score" scope="col" aria-sort="descending"><button class="iam-sort-button" type="button">Risk <span class="sort-arrow"></span></button></th><th data-sort="detected_at" scope="col" aria-sort="none"><button class="iam-sort-button" type="button">Detected <span class="sort-arrow"></span></button></th></tr></thead><tbody id="findingsTableBody"></tbody></table></div>
+          <div class="iam-pagination"><span id="paginationLabel" aria-live="polite"></span><div class="pagination-controls"><button id="prevPage" class="page-btn" aria-label="Previous page" title="Previous page" type="button"><span data-cspm-icon="previous"></span></button><span id="pageIndicator" class="page-indicator"></span><button id="nextPage" class="page-btn" aria-label="Next page" title="Next page" type="button"><span data-cspm-icon="next"></span></button></div></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="iamDrawerBackdrop" class="iam-drawer-backdrop" hidden></div>
+  <aside id="iamFindingDrawer" class="iam-drawer" role="dialog" aria-modal="true" aria-labelledby="iamDrawerTitle" aria-hidden="true" tabindex="-1" inert>
+    <div class="iam-drawer-header"><div><span class="iam-section-kicker">FINDING DETAILS</span><h2 id="iamDrawerTitle">IAM finding</h2></div><button id="iamDrawerClose" class="iam-icon-button" type="button" aria-label="Close finding details"><span data-cspm-icon="close"></span></button></div>
+    <div id="iamDrawerBody" class="iam-drawer-body"></div>
+  </aside>
+
+  <script src="data.js"></script>
+  <script src="scan-data.js"></script>
+  <script src="nav.js"></script>
+  <script src="iam.js"></script>
+</body>
+</html>

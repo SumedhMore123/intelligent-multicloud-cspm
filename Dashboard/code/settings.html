@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Settings</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left"><h1>Settings</h1><p class="subtitle">Configure your CSPM workspace, appearance, notifications, and preferences</p></div>
+        <div class="topbar-actions settings-header-actions"><span id="settingsSaveState" role="status" aria-live="polite">Saved automatically</span><button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button></div>
+      </header>
+      <main class="content settings-content" id="settingsContent" aria-busy="true">
+        <div class="settings-intro"><div><span class="settings-eyebrow">WORKSPACE PREFERENCES</span><h2>Manage your environment</h2><p>Preferences are stored in this browser and apply to supported CSPM views.</p></div><span class="settings-local-state"><span aria-hidden="true"></span>Browser-local settings</span></div>
+        <label class="settings-mobile-nav" for="settingsMobileNav"><span>Settings section</span><select id="settingsMobileNav" aria-label="Settings section"></select></label>
+        <div class="settings-layout">
+          <nav class="settings-nav" id="settingsNav" aria-label="Settings sections"></nav>
+          <section class="settings-panel panel" id="settingsPanel" aria-live="polite" aria-busy="false"></section>
+        </div>
+      </main>
+    </div>
+  </div>
+  <dialog class="settings-reset-dialog" id="resetDialog" aria-labelledby="resetDialogTitle" aria-describedby="resetDialogDescription">
+    <div class="settings-dialog-icon" aria-hidden="true"><span data-cspm-icon="reset"></span></div>
+    <h2 id="resetDialogTitle">Reset all interface preferences?</h2>
+    <p id="resetDialogDescription">This will restore the default dashboard and application preferences.</p>
+    <div class="settings-dialog-actions"><button id="cancelReset" class="btn btn-outline" type="button">Cancel</button><button id="confirmReset" class="btn btn-danger" type="button"><span data-cspm-icon="reset" aria-hidden="true"></span> Reset Preferences</button></div>
+  </dialog>
+  <script src="data.js"></script>
+  <script src="nav.js"></script>
+  <script src="script.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

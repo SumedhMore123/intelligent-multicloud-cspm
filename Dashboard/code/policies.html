@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Policies</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left"><h1>Policies</h1><p class="subtitle">Manage and understand the security rules that define your cloud posture</p></div>
+        <div class="topbar-actions"><button id="policiesRefresh" class="icon-btn" type="button" aria-label="Refresh observed policies" title="Refresh"><span data-cspm-icon="refresh"></span></button><button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button></div>
+      </header>
+      <main class="content policies-content" id="policiesContent" aria-busy="true">
+        <section class="policies-source panel" id="policiesSource" aria-label="Policy data source"><span class="policies-source-icon" data-cspm-icon="activity" aria-hidden="true"></span><div><strong>Observed Policies</strong><p id="policiesSourceText">Policy records are derived from the shared CSPM findings dataset. The complete scanner policy catalog is not connected to this dashboard.</p></div><span class="policies-source-badge">Observed data</span></section>
+        <section class="policies-summary" id="policiesSummary" aria-label="Policy summary"></section>
+        <section class="policies-coverage-grid" id="policiesCoverage" aria-label="Observed policy coverage">
+          <article class="panel policies-coverage-panel"><div class="policies-panel-head"><div><span class="policies-eyebrow">OBSERVED SCOPE</span><h2>Policies by Cloud</h2><p>Distinct observed policy records per provider.</p></div><span data-cspm-icon="cloud" aria-hidden="true"></span></div><div id="policiesCloudCoverage" class="policies-coverage-list"></div></article>
+          <article class="panel policies-coverage-panel"><div class="policies-panel-head"><div><span class="policies-eyebrow">RULE CATEGORIES</span><h2>Policies by Domain</h2><p>Domains are normalized from recorded finding categories.</p></div><span data-cspm-icon="network" aria-hidden="true"></span></div><div id="policiesDomainCoverage" class="policies-coverage-list"></div></article>
+        </section>
+        <section class="panel policies-workspace" id="policiesWorkspace" aria-label="Observed policy records">
+          <div class="policies-workspace-head"><div><span class="policies-eyebrow">POLICY WORKSPACE</span><h2>Observed policy records</h2><p>One row per observed finding ID; these rows do not represent a complete policy catalog.</p></div><span class="policies-record-total" id="policiesRecordTotal"></span></div>
+          <div class="policies-toolbar"><label class="policies-search" for="policySearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="policySearch" type="search" placeholder="Search policies, IDs, domains, cloudsâ€¦" autocomplete="off" /><kbd>/</kbd></label><button id="policyFilterToggle" class="btn btn-outline" type="button" aria-expanded="true" aria-controls="policyFilters"><span data-cspm-icon="filter" aria-hidden="true"></span> Filters <span class="policies-filter-count" id="policyFilterCount" hidden></span></button><button id="policyClearFilters" class="btn btn-quiet" type="button" hidden>Clear all</button></div>
+          <div class="policies-filters" id="policyFilters"></div><div id="policyActiveChips" class="policies-active-chips" aria-label="Active filters"></div><div id="policyResultCount" class="policies-result-count" aria-live="polite"></div>
+          <div class="policies-table-scroll" tabindex="0" aria-label="Scrollable observed policies table"><table class="policies-table"><thead><tr>
+            <th scope="col" data-sort="name"><button type="button" class="policies-sort">Policy <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="id"><button type="button" class="policies-sort">Observed ID <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="cloud"><button type="button" class="policies-sort">Cloud <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="domain"><button type="button" class="policies-sort">Domain <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="severity"><button type="button" class="policies-sort">Severity <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="findings"><button type="button" class="policies-sort">Findings <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="open"><button type="button" class="policies-sort">Open <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="resources"><button type="button" class="policies-sort">Resources <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="status"><button type="button" class="policies-sort">Status <span aria-hidden="true"></span></button></th>
+            <th scope="col" data-sort="lastObserved" aria-sort="descending"><button type="button" class="policies-sort">Last Observed <span aria-hidden="true"></span></button></th>
+          </tr></thead><tbody id="policiesBody"></tbody></table></div>
+          <div id="policiesEmpty" class="policies-empty" hidden></div>
+          <div class="policies-pagination"><span id="policiesPageLabel"></span><div><label for="policiesPageSize">Rows</label><select id="policiesPageSize" aria-label="Policies per page"><option>20</option><option>50</option><option>100</option></select><button id="policiesPrev" class="page-btn" type="button" aria-label="Previous policies page"><span data-cspm-icon="previous"></span></button><span id="policiesPageNumber"></span><button id="policiesNext" class="page-btn" type="button" aria-label="Next policies page"><span data-cspm-icon="next"></span></button></div></div>
+          <div id="policiesLive" class="visually-hidden" role="status" aria-live="polite"></div>
+        </section>
+        <div id="policiesError" class="policies-error" role="alert" hidden><h2>Policy data unavailable</h2><p>The shared CSPM findings source could not be loaded.</p><button id="policiesRetry" class="btn btn-outline" type="button">Retry</button></div>
+      </main>
+    </div>
+  </div>
+  <div id="policyDrawerBackdrop" class="policies-drawer-backdrop" hidden></div>
+  <aside id="policyDrawer" class="policies-drawer" role="dialog" aria-modal="true" aria-labelledby="policyDrawerTitle" aria-hidden="true" inert><div class="policies-drawer-head"><div><span class="policies-eyebrow">OBSERVED POLICY DETAILS</span><h2 id="policyDrawerTitle">Policy</h2></div><button id="policyDrawerClose" class="icon-btn" type="button" aria-label="Close policy details"><span data-cspm-icon="close"></span></button></div><div id="policyDrawerBody" class="policies-drawer-body"></div></aside>
+  <script src="data.js"></script><script src="nav.js"></script><script src="script.js"></script><script src="policies.js"></script>
+</body>
+</html>

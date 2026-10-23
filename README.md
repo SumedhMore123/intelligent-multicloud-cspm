@@ -1,9 +1,5 @@
 # Intelligent Multi-Cloud Security Posture Management Platform
 
-<p align="center">
-  <img src="Dashboard/assets/cspm-logo.png" alt="Intelligent Multi-Cloud CSPM logo" width="220">
-</p>
-
 An undergraduate cybersecurity project for building a practical Cloud Security Posture Management (CSPM) platform that discovers cloud resources, detects security misconfigurations, stores findings, and uses AI/ML to analyze and prioritize security issues.
 
 ## Project Overview

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Reports</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left"><h1>Reports</h1><p class="subtitle">Generate security, posture, and compliance reports from your CSPM data</p></div>
+        <div class="topbar-actions"><button id="reportsRefresh" class="icon-btn" type="button" aria-label="Refresh report data" title="Refresh"><span data-cspm-icon="refresh"></span></button><button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button></div>
+      </header>
+      <main class="content reports-content" id="reportsContent" aria-busy="true">
+        <section class="reports-coverage panel" aria-label="Current CSPM data coverage"><div class="reports-coverage-title"><span data-cspm-icon="activity" aria-hidden="true"></span><div><strong>Current data coverage</strong><p>Reports reflect records currently available to CSPM.</p></div></div><div id="reportsCoverageBadges" class="reports-coverage-badges"></div></section>
+        <section class="reports-types-section" aria-labelledby="reportTypesTitle"><div class="reports-section-heading"><div><span class="reports-eyebrow">REPORT LIBRARY</span><h2 id="reportTypesTitle">Generate a report</h2><p>Choose a report view, set its scope, then generate a print-ready report or export the scoped data.</p></div><span class="reports-source-label">CSPM current data</span></div><div id="reportTypeGrid" class="report-type-grid" role="group" aria-label="Report type"></div></section>
+        <div class="reports-workspace">
+          <section class="panel reports-parameters" aria-labelledby="reportParametersTitle"><div class="reports-panel-heading"><div><span class="reports-eyebrow">CONFIGURATION</span><h2 id="reportParametersTitle">Report scope</h2></div><span data-cspm-icon="filter" aria-hidden="true"></span></div>
+            <div class="report-parameters-form"><label for="reportCloud">Cloud</label><select id="reportCloud"><option value="all">All clouds</option></select><label for="reportDomain">Domain</label><select id="reportDomain"><option value="all">All domains</option></select><div class="report-filter-row" id="reportSeverityWrap"><label for="reportSeverity">Severity</label><select id="reportSeverity"><option value="all">All severities</option></select></div><div class="report-filter-row" id="reportStatusWrap"><label for="reportStatus">Finding status</label><select id="reportStatus"><option value="all">All statuses</option></select></div><label for="reportDateRange">Date range</label><select id="reportDateRange"><option value="all">All available data</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option><option value="custom">Custom range</option></select><div id="reportCustomDates" class="report-custom-dates" hidden><label for="reportDateFrom">From</label><input id="reportDateFrom" type="date" /><label for="reportDateTo">To</label><input id="reportDateTo" type="date" /></div><p class="report-date-hint" id="reportDateHint">Date ranges use each finding’s recorded detected_at timestamp.</p></div>
+            <div class="report-framework-note"><span data-cspm-icon="compliance" aria-hidden="true"></span><p><strong>Framework mappings unavailable</strong><br />Generic scan posture is not a certification or framework compliance score.</p></div>
+          </section>
+          <section class="panel report-preview-panel" id="reportPreviewPanel" aria-labelledby="reportPreviewTitle"><div class="report-preview-head"><div><span class="reports-eyebrow">REPORT PREVIEW</span><h2 id="reportPreviewTitle">Executive Security Summary</h2><p id="reportPreviewDescription"></p></div><span class="report-preview-status" id="reportPreviewStatus">Preview</span></div><div class="report-preview-meta"><div><span>Generated</span><strong id="reportGeneratedAt">Generate to timestamp this report</strong></div><div><span>Data source</span><strong>CSPM current data</strong></div><div><span>Scope</span><strong id="reportScopeLabel">All clouds · All domains · All available data</strong></div></div><div id="reportEmptyState" class="report-empty-state" hidden>No CSPM data available for this report scope.</div><div id="reportPreviewBody" class="report-preview-body"></div><div id="reportStatusMessage" class="reports-live" role="status" aria-live="polite"></div><div class="report-actions"><button id="reportGenerate" class="btn btn-primary" type="button"><span data-cspm-icon="reports" aria-hidden="true"></span> Generate report</button><button id="reportDownloadJson" class="btn btn-outline" type="button" disabled><span data-cspm-icon="export" aria-hidden="true"></span> JSON</button><button id="reportDownloadCsv" class="btn btn-outline" type="button" disabled><span data-cspm-icon="export" aria-hidden="true"></span> CSV</button><button id="reportPrint" class="btn btn-quiet" type="button" disabled><span data-cspm-icon="executive" aria-hidden="true"></span> Print / Save PDF</button></div><p class="report-footer-copy">CSPM Report · Generated from current available CSPM data.</p></section>
+        </div>
+        <section class="reports-backend-notes" aria-label="Report storage availability"><article class="panel"><span data-cspm-icon="calendar" aria-hidden="true"></span><div><strong>Report history</strong><p>Report history will appear when persistent report storage is enabled.</p></div></article><article class="panel"><span data-cspm-icon="activity" aria-hidden="true"></span><div><strong>Scheduled reporting</strong><p>Scheduled reporting requires persistent backend support.</p></div></article></section>
+        <div id="reportsError" class="reports-error" role="alert" hidden><h2>Unable to load CSPM report data</h2><p>Refresh to retry.</p><button id="reportsRetry" class="btn btn-outline" type="button">Retry</button></div>
+      </main>
+    </div>
+  </div>
+  <script src="data.js"></script><script src="nav.js"></script><script src="script.js"></script><script src="executive-summary.js"></script><script src="inventory.js"></script><script src="policies.js"></script><script src="reports.js"></script>
+</body>
+</html>

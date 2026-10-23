@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Cloud Security</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left"><h1>Cloud Security</h1><p class="subtitle">Monitor security posture across your connected cloud environments</p></div>
+        <div class="topbar-actions cloud-security-actions">
+          <label for="cloudProviderFilter">Cloud</label>
+          <select id="cloudProviderFilter" class="cloud-security-select" aria-label="Select cloud provider"><option value="all">All Clouds</option><option value="AWS">AWS</option><option value="Azure">Azure</option><option value="GCP">GCP</option></select>
+          <button id="cloudSecurityRefresh" class="icon-btn" type="button" aria-label="Refresh cloud security data" title="Refresh"><span data-cspm-icon="refresh"></span></button>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button>
+        </div>
+      </header>
+      <main class="content cloud-security-content" id="cloudSecurityContent" aria-busy="true">
+        <div id="cloudSecurityLoading" class="cloud-security-loading" aria-label="Loading cloud security data"><div class="cloud-security-skeleton cloud-security-skeleton-hero"></div><div class="cloud-security-skeleton-grid"><div class="cloud-security-skeleton"></div><div class="cloud-security-skeleton"></div></div></div>
+        <section id="cloudSecurityError" class="cloud-security-error" role="alert" hidden><span data-cspm-icon="activity" aria-hidden="true"></span><h2>Cloud security data unavailable</h2><p>Refresh to retry loading the shared findings data.</p><button id="cloudSecurityRetry" class="btn btn-outline" type="button">Refresh</button></section>
+        <div id="cloudSecurityWorkspace" hidden>
+          <section class="cloud-provider-section" aria-labelledby="cloudOverviewTitle">
+            <div class="cloud-section-head"><div><div class="cloud-section-kicker">MULTI-CLOUD POSTURE</div><h2 id="cloudOverviewTitle">Provider Overview</h2><p>Finding-backed visibility by cloud provider.</p></div><span class="cloud-data-count" id="cloudsWithDataBadge">—</span></div>
+            <div class="cloud-provider-grid" id="cloudProviderCards"></div>
+          </section>
+          <section class="cloud-summary-strip" id="cloudSummary" aria-label="Cloud security summary"></section>
+
+          <section class="cloud-security-grid cloud-chart-grid">
+            <article class="panel cloud-security-panel cloud-findings-breakdown"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">EXPOSURE</div><h2>Findings by Cloud</h2><p>Finding volume and current open exposure.</p></div><span data-cspm-icon="findings" aria-hidden="true"></span></div><div id="findingsByCloud" class="cloud-breakdown-list"></div><div class="cloud-chart-legend"><span><i class="cloud-legend-dot dot-critical"></i>Critical</span><span><i class="cloud-legend-dot dot-high"></i>High</span><span><i class="cloud-legend-dot dot-medium"></i>Medium</span><span><i class="cloud-legend-dot dot-low"></i>Low</span><span><i class="cloud-legend-dot dot-other"></i>Other</span></div></article>
+            <article class="panel cloud-security-panel cloud-risk-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">OPEN RISK</div><h2>Risk by Cloud</h2><p>Open risk findings by severity. PASS and INFO are excluded.</p></div><span data-cspm-icon="high" aria-hidden="true"></span></div><div id="riskByCloud" class="cloud-risk-list"></div><div id="riskConcentration" class="risk-concentration"></div></article>
+          </section>
+
+          <section class="cloud-security-grid cloud-asset-grid">
+            <article class="panel cloud-security-panel resource-cloud-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">ASSET FOOTPRINT</div><h2>Resources by Cloud</h2><p>Unique resource type and resource ID pairs.</p></div><span data-cspm-icon="resources" aria-hidden="true"></span></div><div id="resourcesByCloud" class="resource-cloud-list"></div></article>
+            <article class="panel cloud-security-panel resource-type-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">INVENTORY MIX</div><h2>Resource Types by Cloud</h2><p>Only observed resource types are included.</p></div><span data-cspm-icon="inventory" aria-hidden="true"></span></div><div id="resourceTypesByCloud" class="resource-type-list"></div></article>
+          </section>
+
+          <section class="cloud-security-grid cloud-visibility-grid">
+            <article class="panel cloud-security-panel domains-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">SECURITY COVERAGE</div><h2>Security Domains by Cloud</h2><p>Observed finding distribution. Empty domains are not inferred.</p></div><span data-cspm-icon="network" aria-hidden="true"></span></div><div id="domainsByCloud" class="domains-by-cloud"></div></article>
+            <article class="panel cloud-security-panel visibility-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">CONNECTED ENVIRONMENTS</div><h2>Cloud Visibility</h2><p>Provider coverage present in the current findings data.</p></div><span data-cspm-icon="cloud" aria-hidden="true"></span></div><div id="cloudVisibility" class="cloud-visibility-list"></div><div class="visibility-limitations"><div><strong>Accounts &amp; environments</strong><span id="accountVisibility">Account-level visibility unavailable</span></div><div><strong>Regions</strong><span id="regionVisibility">Regional inventory data unavailable</span></div></div></article>
+          </section>
+
+          <section class="panel cloud-security-panel cloud-comparison-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">PROVIDER BENCHMARK</div><h2>Cloud Comparison</h2><p>Measured volumes from the current finding and resource records.</p></div><span data-cspm-icon="reports" aria-hidden="true"></span></div><div class="cloud-comparison-scroll" tabindex="0" aria-label="Scrollable cloud comparison table"><table class="cloud-comparison-table"><thead><tr><th>Cloud</th><th>Data state</th><th>Findings</th><th>Open</th><th>High</th><th>Critical</th><th>Resources</th></tr></thead><tbody id="cloudComparisonBody"></tbody></table></div></section>
+
+          <section class="panel cloud-security-panel recommendation-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">EVIDENCE-BASED NEXT STEPS</div><h2>Recommended Cloud Actions</h2><p>Recommendations follow provider scan availability and observed findings.</p></div><span data-cspm-icon="activity" aria-hidden="true"></span></div><div id="cloudRecommendations" class="cloud-recommendation-list"></div></section>
+
+          <section class="panel cloud-security-panel cloud-operational-panel"><div class="cloud-panel-head"><div><div class="cloud-section-kicker">INVESTIGATION</div><h2>Cloud Findings</h2><p id="cloudFindingsDescription">Search and filter operational findings in the selected cloud context.</p></div><a class="cloud-view-all" href="findings.html">Open Findings <span aria-hidden="true">→</span></a></div>
+            <div class="cloud-findings-toolbar"><label class="cloud-findings-search" for="cloudFindingSearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="cloudFindingSearch" type="search" placeholder="Search finding, resource, domain, or ID" autocomplete="off" /></label><label><span>Severity</span><select id="cloudSeverityFilter" aria-label="Filter cloud findings by severity"><option value="">All severities</option></select></label><label><span>Domain</span><select id="cloudDomainFilter" aria-label="Filter cloud findings by domain"><option value="">All domains</option></select></label><label><span>Status</span><select id="cloudStatusFilter" aria-label="Filter cloud findings by status"><option value="">All statuses</option></select></label><button id="clearCloudFindingFilters" class="btn btn-quiet" type="button" hidden>Clear</button></div>
+            <div class="cloud-findings-result" id="cloudFindingsResult" aria-live="polite"></div>
+            <div class="cloud-findings-table-wrap" tabindex="0" aria-label="Scrollable cloud findings table"><table class="cloud-findings-table"><thead><tr><th>Cloud</th><th>Finding</th><th>Domain</th><th>Resource</th><th>Severity</th><th>Risk</th><th>Status</th><th>Detected</th></tr></thead><tbody id="cloudFindingsBody"></tbody></table></div>
+            <div id="cloudFindingsEmpty" class="cloud-findings-empty" hidden></div>
+            <div class="cloud-findings-pagination" id="cloudFindingsPagination" hidden><span id="cloudFindingsPageLabel"></span><div><button id="cloudFindingsPrev" class="page-btn" type="button" aria-label="Previous cloud findings page"><span data-cspm-icon="previous"></span></button><span id="cloudFindingsPageNumber"></span><button id="cloudFindingsNext" class="page-btn" type="button" aria-label="Next cloud findings page"><span data-cspm-icon="next"></span></button></div></div>
+          </section>
+          <div id="cloudSecurityLive" class="visually-hidden" role="status" aria-live="polite"></div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <div class="cloud-drawer-backdrop" id="cloudDrawerBackdrop" hidden></div>
+  <aside class="cloud-detail-drawer" id="cloudDetailDrawer" role="dialog" aria-modal="true" aria-labelledby="cloudDrawerTitle" aria-hidden="true" inert>
+    <div class="cloud-drawer-head"><div><span class="cloud-section-kicker">PROVIDER DETAILS</span><h2 id="cloudDrawerTitle">Cloud</h2></div><button id="cloudDrawerClose" class="icon-btn" type="button" aria-label="Close cloud details"><span data-cspm-icon="close"></span></button></div><div id="cloudDrawerBody" class="cloud-drawer-body"></div>
+  </aside>
+  <script src="data.js"></script><script src="nav.js"></script><script src="script.js"></script><script src="cloud-security.js"></script>
+</body>
+</html>

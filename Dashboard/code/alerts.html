@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Alerts</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1>Alerts</h1>
+          <p class="subtitle">Prioritize security events that require investigation or action</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="alertsRefresh" class="icon-btn" type="button" aria-label="Refresh alerts" title="Refresh alerts"><span data-cspm-icon="refresh"></span></button>
+          <button id="alertsFilterToggle" class="btn btn-outline" type="button" aria-expanded="true" aria-controls="alertsFilters"><span data-cspm-icon="filter" aria-hidden="true"></span> Filter</button>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button>
+        </div>
+      </header>
+      <main class="content alerts-content" id="alertsContent" aria-busy="true">
+        <div class="alerts-source-note"><span data-cspm-icon="activity" aria-hidden="true"></span><span><strong>Derived from current CSPM findings</strong><span>Eligibility: finding status OPEN and severity Critical, High, or Medium. Alert acknowledgement and resolution state are not available.</span></span><a href="findings.html">Open Findings</a></div>
+        <section class="alerts-summary" id="alertsSummary" aria-label="Alert summary"></section>
+        <section class="alerts-queue panel" id="alertsQueue" aria-label="Priority queue"></section>
+        <section class="alerts-toolbar panel" aria-label="Search and filter alerts">
+          <div class="alerts-search-row">
+            <label class="alerts-search" for="alertsSearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="alertsSearch" type="search" placeholder="Search alerts, IDs, resources…" autocomplete="off" /><kbd>/</kbd></label>
+            <button id="alertsClear" class="btn btn-quiet" type="button" hidden>Clear all</button>
+          </div>
+          <div class="alerts-filters" id="alertsFilters"></div>
+          <div class="alerts-active-chips" id="alertsChips" aria-label="Active filters"></div>
+          <div class="alerts-results"><span id="alertsResultCount" aria-live="polite"></span><span id="alertsStatus" class="visually-hidden" role="status" aria-live="polite"></span></div>
+        </section>
+        <section class="panel alerts-table-panel" id="alertsTablePanel" aria-label="Alert records">
+          <div class="alerts-table-scroll" tabindex="0" aria-label="Scrollable alerts table">
+            <table class="alerts-table">
+              <thead><tr>
+                <th scope="col" data-sort="severity"><button class="alerts-sort" type="button">Severity <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="title"><button class="alerts-sort" type="button">Alert <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="cloud"><button class="alerts-sort" type="button">Cloud <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="domain"><button class="alerts-sort" type="button">Domain <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="resource"><button class="alerts-sort" type="button">Resource <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="risk_score"><button class="alerts-sort" type="button">Risk <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="status"><button class="alerts-sort" type="button">Status <span aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="detected_at" aria-sort="descending"><button class="alerts-sort" type="button">Detected <span aria-hidden="true"></span></button></th>
+              </tr></thead>
+              <tbody id="alertsBody"></tbody>
+            </table>
+          </div>
+          <div class="alerts-empty" id="alertsEmpty" hidden></div>
+          <div class="alerts-pagination">
+            <span id="alertsPaginationLabel"></span>
+            <div class="pagination-controls"><label for="alertsPageSize">Rows</label><select id="alertsPageSize" aria-label="Alerts per page"><option>20</option><option>50</option><option>100</option></select><button id="alertsPrev" class="page-btn" type="button" aria-label="Previous page"><span data-cspm-icon="previous"></span></button><span class="page-indicator" id="alertsPageIndicator"></span><button id="alertsNext" class="page-btn" type="button" aria-label="Next page"><span data-cspm-icon="next"></span></button></div>
+          </div>
+        </section>
+        <section class="alerts-error" id="alertsError" role="alert" hidden><span data-cspm-icon="activity" aria-hidden="true"></span><h2>Unable to load alerts</h2><p>Refresh to retry.</p><button id="alertsRetry" class="btn btn-outline" type="button">Refresh</button></section>
+      </main>
+    </div>
+  </div>
+  <div class="alerts-backdrop" id="alertsBackdrop" hidden></div>
+  <aside class="alerts-drawer" id="alertsDrawer" role="dialog" aria-modal="true" aria-labelledby="alertsDrawerTitle" aria-hidden="true" inert>
+    <div class="alerts-drawer-head"><div><span class="alerts-drawer-eyebrow">Derived alert</span><h2 id="alertsDrawerTitle">Alert details</h2></div><button id="alertsDrawerClose" class="icon-btn" type="button" aria-label="Close alert details"><span data-cspm-icon="close"></span></button></div>
+    <div class="alerts-drawer-body" id="alertsDrawerBody"></div>
+  </aside>
+  <script src="data.js"></script>
+  <script src="nav.js"></script>
+  <script src="script.js"></script>
+  <script src="alerts.js"></script>
+</body>
+</html>

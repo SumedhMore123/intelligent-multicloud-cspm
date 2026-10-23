@@ -1,4 +1,4 @@
-from models.finding import Finding
+from ..models.finding import Finding
 
 
 def check_ssh_rule(rule, sg):

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Executive Summary</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="executive-summary.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1>Executive Summary</h1>
+          <p class="subtitle">High-level overview of cloud security posture, risk exposure, and priority actions</p>
+        </div>
+        <div class="topbar-actions exec-topbar-actions">
+          <div class="date-range-selector exec-scan-label" title="Current findings dataset; historical scan periods are not available">
+            <span data-cspm-icon="calendar" aria-hidden="true"></span>
+            <span>Current dataset</span>
+          </div>
+          <button id="refreshBtn" class="icon-btn" type="button" title="Refresh executive summary" aria-label="Refresh executive summary">
+            <span data-cspm-icon="refresh" aria-hidden="true"></span>
+          </button>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button>
+        </div>
+      </header>
+      <main class="content exec-content" id="execContent" aria-busy="true">
+        <div class="exec-loading" aria-label="Loading executive summary">
+          <div class="exec-skeleton exec-skeleton-hero"></div>
+          <div class="exec-skeleton-row"><div class="exec-skeleton"></div><div class="exec-skeleton"></div></div>
+          <div class="exec-skeleton exec-skeleton-wide"></div>
+        </div>
+        <div class="exec-error" id="execError" role="alert" hidden>
+          <div class="exec-error-icon" aria-hidden="true"><span data-cspm-icon="activity"></span></div>
+          <h2>Security posture data unavailable</h2>
+          <p>Refresh to retry.</p>
+          <button class="btn btn-outline" id="execRetry" type="button">Retry</button>
+        </div>
+        <div id="execSummary" hidden></div>
+        <div id="execStatus" class="visually-hidden" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+  </div>
+  <script src="data.js"></script>
+  <script src="nav.js"></script>
+  <script src="script.js"></script>
+  <script src="executive-summary.js"></script>
+</body>
+</html>

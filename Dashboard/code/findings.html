@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - Findings</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="findings.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1>Findings</h1>
+          <p class="subtitle">Investigate, prioritize, and manage cloud security posture findings</p>
+        </div>
+        <div class="topbar-actions findings-actions">
+          <button id="findingsRefresh" class="icon-btn" type="button" aria-label="Refresh findings" title="Refresh findings"><span data-cspm-icon="refresh"></span></button>
+          <button id="findingsExport" class="btn btn-outline findings-export" type="button"><span data-cspm-icon="export"></span> Export JSON</button>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button>
+        </div>
+      </header>
+      <main class="content findings-content" id="findingsContent" aria-busy="true">
+        <section class="finding-summary" id="findingSummary" aria-label="Finding summary"></section>
+        <section class="finding-toolbar panel" id="findingToolbar" aria-label="Findings search and filters">
+          <div class="finding-search-row">
+            <label class="finding-search" for="findingSearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="findingSearch" type="search" placeholder="Search findings, IDs, resources, evidence…" autocomplete="off" /><kbd>/</kbd></label>
+            <button id="filterToggle" class="btn btn-outline filter-toggle" type="button" aria-expanded="true" aria-controls="findingFilters"><span data-cspm-icon="filter" aria-hidden="true"></span> Filters <span class="filter-count" id="filterCount" hidden></span></button>
+            <button id="clearFilters" class="btn btn-quiet" type="button" hidden>Clear all</button>
+          </div>
+          <div class="finding-filters" id="findingFilters"></div>
+          <div class="active-chips" id="activeChips" aria-label="Active filters"></div>
+          <div class="finding-result-meta"><span id="resultCount" aria-live="polite"></span><span id="findingsStatus" class="visually-hidden" role="status" aria-live="polite"></span></div>
+        </section>
+        <section class="panel findings-table-panel" id="findingsTablePanel" aria-label="Finding records">
+          <div class="table-scroll" tabindex="0" aria-label="Scrollable findings table">
+            <table class="findings-table">
+              <thead><tr>
+                <th scope="col" data-sort="severity"><button class="sort-button" type="button">Severity <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="finding"><button class="sort-button" type="button">Finding <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="cloud"><button class="sort-button" type="button">Cloud <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="domain"><button class="sort-button" type="button">Domain <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="resource"><button class="sort-button" type="button">Resource <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="risk_score"><button class="sort-button" type="button">Risk <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="status"><button class="sort-button" type="button">Status <span class="sort-indicator" aria-hidden="true"></span></button></th>
+                <th scope="col" data-sort="detected_at" aria-sort="descending"><button class="sort-button" type="button">Detected <span class="sort-indicator" aria-hidden="true"></span></button></th>
+              </tr></thead>
+              <tbody id="findingsBody"></tbody>
+            </table>
+          </div>
+          <div class="findings-empty" id="findingsEmpty" hidden></div>
+          <div class="finding-pagination">
+            <span id="paginationLabel"></span>
+            <div class="pagination-controls">
+              <label class="page-size-label" for="pageSize">Rows</label>
+              <select id="pageSize" aria-label="Rows per page"><option>20</option><option>50</option><option>100</option></select>
+              <button id="prevPage" class="page-btn" type="button" aria-label="Previous page"><span data-cspm-icon="previous"></span></button>
+              <span class="page-indicator" id="pageIndicator"></span>
+              <button id="nextPage" class="page-btn" type="button" aria-label="Next page"><span data-cspm-icon="next"></span></button>
+            </div>
+          </div>
+        </section>
+        <div class="findings-error" id="findingsError" role="alert" hidden><span data-cspm-icon="activity" aria-hidden="true"></span><h2>Findings data unavailable</h2><p>Refresh to retry loading the shared findings dataset.</p><button class="btn btn-outline" id="findingsRetry" type="button">Retry</button></div>
+      </main>
+    </div>
+  </div>
+  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
+  <aside class="finding-drawer" id="findingDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true" inert>
+    <div class="drawer-head"><div><span class="drawer-eyebrow">Finding details</span><h2 id="drawerTitle">Finding</h2></div><button class="icon-btn" id="drawerClose" type="button" aria-label="Close finding details"><span data-cspm-icon="close"></span></button></div>
+    <div class="drawer-content" id="drawerContent"></div>
+  </aside>
+  <script src="data.js"></script>
+  <script src="nav.js"></script>
+  <script src="script.js"></script>
+  <script src="findings.js"></script>
+</body>
+</html>

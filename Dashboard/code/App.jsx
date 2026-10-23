@@ -29,11 +29,24 @@ export default function App() {
         {/* LOGO */}
         <div className="border-b border-slate-800 px-6 py-6">
 
-          <img
-            className="h-[92px] w-full object-cover object-top"
-            src="../assets/IMCSPM%20Tech%20Brand%20Board.png"
-            alt="IMCSPM - Intelligent Multi-Cloud Security Posture Management"
-          />
+          <div className="flex items-center gap-3">
+
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-500/10">
+              <AppIcon name="dashboard" className="h-5 w-5 text-blue-400" />
+            </div>
+
+            <div>
+              <h1 className="font-semibold text-white">
+                CSPM Platform
+              </h1>
+
+              <p className="text-xs text-slate-500">
+                Cloud Security
+              </p>
+            </div>
+
+          </div>
+
         </div>
 
 

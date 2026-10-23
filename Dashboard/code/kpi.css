@@ -1,0 +1,98 @@
+
+/* ============================================================
+   KPI STRIP
+   ============================================================ */
+.dashboard-kpis {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+.dashboard-kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  box-shadow: var(--shadow-panel);
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-medium);
+}
+
+.dashboard-kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.dashboard-kpi-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.kpi-icon-wrap {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.kpi-icon-total { background: var(--accent-soft); color: var(--accent); }
+.kpi-icon-critical { background: var(--critical-bg); color: var(--critical); }
+.kpi-icon-high { background: var(--high-bg); color: var(--high); }
+.kpi-icon-resources { background: var(--accent-soft); color: var(--accent); }
+.kpi-icon-compliance { background: var(--pass-bg); color: var(--pass); }
+
+.kpi-icon-wrap svg {
+  width: 14px;
+  height: 14px;
+}
+
+.dashboard-kpi-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ink-strong);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.dashboard-kpi-card .critical-text { color: var(--critical); }
+.dashboard-kpi-card .high-text { color: var(--high); }
+.dashboard-kpi-card .posture-text { color: var(--pass); }
+
+.kpi-trend {
+  margin-top: auto;
+}
+
+.kpi-trend-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+.kpi-trend-neutral { color: var(--muted); }
+.kpi-trend-up { color: var(--pass); }
+.kpi-trend-down { color: var(--critical); }
+
+/* ============================================================
+   GRID LAYOUTS
+   ============================================================ */
+.dash-row {
+  display: grid;
+  gap: 16px;
+}
+.dash-row-3col {
+  grid-template-columns: 28fr 40fr 30fr;
+}
+.dash-row-equal {
+  grid-template-columns: repeat(3, 1fr);
+}

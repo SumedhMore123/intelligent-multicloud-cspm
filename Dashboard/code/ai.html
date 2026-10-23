@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="color-scheme" content="light dark" />
+  <title>CSPM Platform - AI Intelligence</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar" id="appSidebar"></aside>
+    <div class="main">
+      <header class="topbar ai-topbar">
+        <div class="topbar-left ai-page-heading"><span class="ai-title-icon" data-cspm-icon="ai" aria-hidden="true"></span><div><h1>AI Intelligence</h1><p class="subtitle">AI-assisted analysis for cloud security findings, risk prioritization, and remediation guidance.</p></div></div>
+        <div class="topbar-actions ai-header-actions"><span class="ai-config-status" role="status"><i></i>Not Configured</span><button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle color theme"><span data-cspm-icon="moon" aria-hidden="true"></span><span>Dark</span></button></div>
+      </header>
+
+      <main class="content ai-content">
+        <section class="ai-capabilities-section" aria-labelledby="aiCapabilitiesTitle"><div class="ai-section-heading"><div><span class="ai-eyebrow">CAPABILITIES</span><h2 id="aiCapabilitiesTitle">AI-assisted security workflows</h2><p>Interface previews describe planned capabilities; analysis is not active.</p></div><span class="ai-preview-badge">Preview</span></div>
+          <div class="ai-capability-grid">
+            <article class="ai-capability"><span class="ai-capability-icon" data-cspm-icon="info" aria-hidden="true"></span><div><h3>Finding Explanation</h3><p>Explain why a finding matters using its evidence and context.</p></div><span class="ai-capability-state">Preview</span></article>
+            <article class="ai-capability"><span class="ai-capability-icon" data-cspm-icon="policies" aria-hidden="true"></span><div><h3>Remediation Guidance</h3><p>Help analysts review possible corrective steps.</p></div><span class="ai-capability-state">Preview</span></article>
+            <article class="ai-capability"><span class="ai-capability-icon" data-cspm-icon="high" aria-hidden="true"></span><div><h3>Risk Prioritization</h3><p>Prioritize findings using supported security context.</p></div><span class="ai-capability-state">Preview</span></article>
+            <article class="ai-capability"><span class="ai-capability-icon" data-cspm-icon="network" aria-hidden="true"></span><div><h3>Finding Correlation</h3><p>Surface relationships among findings for analyst review.</p></div><span class="ai-capability-state">Preview</span></article>
+          </div>
+        </section>
+
+        <section class="ai-workspace-grid">
+          <article class="panel ai-analysis-panel" aria-labelledby="aiWorkspaceTitle"><div class="ai-panel-heading"><div><span class="ai-eyebrow">ANALYST WORKSPACE</span><h2 id="aiWorkspaceTitle">Finding analysis preview</h2><p>Select a real finding to review the fields a future provider could receive.</p></div><span class="ai-panel-mark" data-cspm-icon="ai" aria-hidden="true"></span></div>
+            <div class="ai-selector-row"><label for="aiFindingSelect">Security finding</label><select id="aiFindingSelect" aria-describedby="aiProviderNotice"><option value="">Loading findings…</option></select></div>
+            <div id="aiSelectedFinding" class="ai-selected-finding"><div class="ai-no-selection"><span data-cspm-icon="findings" aria-hidden="true"></span><strong>No finding selected</strong><span>Select a finding to review its source details.</span></div></div>
+            <section class="ai-inputs-section" aria-labelledby="aiInputsTitle"><div class="ai-inputs-heading"><div><h3 id="aiInputsTitle">Potential analysis inputs</h3><p>Source finding details only. Nothing is sent to an AI provider.</p></div><span data-cspm-icon="activity" aria-hidden="true"></span></div><div id="aiAnalysisInputs" class="ai-analysis-inputs"><span class="ai-input-placeholder">Select a finding to inspect its available fields.</span></div></section>
+            <div class="ai-unavailable-notice" id="aiProviderNotice" role="status"><span data-cspm-icon="info" aria-hidden="true"></span><p><strong>AI analysis is unavailable.</strong><span>No AI provider is configured. Finding selection and review use the existing CSPM data only.</span></p></div>
+            <button id="aiAnalyzeButton" class="ai-analyze-button" type="button" disabled aria-describedby="aiProviderNotice"><span data-cspm-icon="ai" aria-hidden="true"></span>Analyze Finding</button>
+          </article>
+
+          <aside class="ai-readiness-column">
+            <article class="panel ai-readiness-panel"><div class="ai-panel-heading"><div><span class="ai-eyebrow">CAPABILITY READINESS</span><h2>Current state</h2></div><span data-cspm-icon="activity" aria-hidden="true"></span></div><div id="aiReadinessList" class="ai-readiness-list"></div><p class="ai-readiness-footnote">No model, connection, performance, or usage metrics are available.</p></article>
+            <article class="ai-source-panel"><div class="ai-source-heading"><span data-cspm-icon="findings" aria-hidden="true"></span><div><span class="ai-eyebrow">SOURCE DATA</span><h2>Security findings for review</h2></div></div><strong id="aiReviewCount">—</strong><span id="aiReviewSummary">Loading shared CSPM findings</span></article>
+          </aside>
+        </section>
+
+        <section class="panel ai-findings-panel" aria-labelledby="aiFindingsTitle"><div class="ai-table-heading"><div><span class="ai-eyebrow">RISK REVIEW</span><h2 id="aiFindingsTitle">Security Findings for Review</h2><p>Open risk findings from the shared CSPM collection. PASS, INFO, and RESOLVED records are excluded.</p></div><span class="ai-table-count" id="aiFilteredCount" aria-live="polite"></span></div>
+          <div class="ai-table-filters"><label class="ai-search" for="aiFindingSearch"><span data-cspm-icon="search" aria-hidden="true"></span><input id="aiFindingSearch" type="search" placeholder="Search findings, resources, or evidence" autocomplete="off" /></label><label class="ai-severity-filter"><span>Severity</span><select id="aiSeverityFilter" aria-label="Filter findings by severity"><option value="">All severities</option></select></label><button id="aiClearFilters" class="btn btn-quiet" type="button" hidden>Clear</button></div>
+          <div class="ai-table-wrap" tabindex="0" aria-label="Scrollable security findings table"><table class="ai-findings-table"><thead><tr><th>Severity</th><th>Finding</th><th>Cloud</th><th>Domain</th><th>Resource</th><th>Risk</th><th>Status</th></tr></thead><tbody id="aiFindingsBody"></tbody></table></div>
+          <div id="aiFindingsEmpty" class="ai-findings-empty" hidden></div>
+        </section>
+
+        <section class="ai-setup-panel" aria-labelledby="aiSetupTitle"><div class="ai-setup-icon" data-cspm-icon="settings" aria-hidden="true"></div><div class="ai-setup-copy"><span class="ai-eyebrow">GETTING STARTED</span><h2 id="aiSetupTitle">Configure a provider to enable AI-assisted analysis</h2><p>A future integration will need an approved AI provider and securely managed credentials. Provider selection, credential setup, and analysis are not available in this preview.</p></div><span class="ai-setup-state">Not configured</span></section>
+        <div id="aiLive" class="visually-hidden" role="status" aria-live="polite"></div>
+      </main>
+    </div>
+  </div>
+  <script src="data.js"></script><script src="scan-data.js"></script><script src="nav.js"></script><script src="script.js"></script><script src="ai-intelligence.js"></script>
+</body>
+</html>

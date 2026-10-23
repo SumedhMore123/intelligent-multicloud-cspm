@@ -1,7 +1,5 @@
 class Finding:
-    """
-    Represents a security finding detected by the CSPM scanner.
-    """
+    """Represents a security finding detected by a CSPM scanner."""
 
     def __init__(
         self,
@@ -13,7 +11,7 @@ class Finding:
         description,
         evidence,
         recommendation,
-        status="OPEN"
+        status="OPEN",
     ):
         self.rule_id = rule_id
         self.resource_name = resource_name
@@ -26,9 +24,7 @@ class Finding:
         self.status = status
 
     def to_dict(self):
-        """
-        Convert the finding into a dictionary.
-        """
+        """Return the canonical scanner finding contract."""
         return {
             "rule_id": self.rule_id,
             "resource_name": self.resource_name,
@@ -38,5 +34,5 @@ class Finding:
             "description": self.description,
             "evidence": self.evidence,
             "recommendation": self.recommendation,
-            "status": self.status
+            "status": self.status,
         }
