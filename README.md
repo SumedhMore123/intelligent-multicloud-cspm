@@ -208,6 +208,14 @@ UI responsibilities separate while the findings API is being developed.
 
 ## Running a live IAM scan
 
+## Quick-start dashboard
+
+On Windows, double-click [`start-dashboard.bat`](./start-dashboard.bat). It
+starts the local dashboard and API servers if they are not already running,
+then opens the dashboard at
+`http://127.0.0.1:8000/code/index.html`. Double-click
+[`stop-dashboard.bat`](./stop-dashboard.bat) when you are finished.
+
 Start the local API from the repository root:
 
 ```powershell

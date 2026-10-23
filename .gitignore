@@ -8,6 +8,7 @@ scan_results/
 node_modules/
 *.bak
 Dashboard/code.zip
+.dashboard-logs/
 
 # Virtual environments
 venv/
